@@ -16,7 +16,7 @@ public class Anagram {
 		System.out.println("silent and " + randomAnagram("silent") + " are anagrams.");
 
 		// Performs a stress test of randomAnagram
-		String str = "1234567";
+		String str = "i am leanne";
 		Boolean pass = true;
 		//// 10 can be changed to much larger values, like 1000
 		for (int i = 0; i < 10; i++) {
@@ -89,14 +89,20 @@ public class Anagram {
 	// the same
 	// characters as the given string, re-arranged in a random order.
 	public static String randomAnagram(String str) {
+		System.out.println("the word is: " + str);
 		String anagram = ""; 
 		double r;
 		int charNum;
 		while(str.length() > 0){
+			System.out.println("the word length is : " + str.length());
 		r = Math.random();
 		charNum = (int) (r * (str.length() -1));
+		System.out.println("the random number is: " + charNum);
+		System.out.println("the char is: " + str.charAt(charNum));
 		anagram = anagram + str.charAt(charNum);
-		str = str.replace(Character.toString(str.charAt(charNum)), "");
+		System.out.println("the new word is: " + anagram);
+		str = str.substring(0, charNum) + str.substring(charNum + 1);
+		System.out.println("the old word is: " + str);
 		}
 		return anagram;
 	}

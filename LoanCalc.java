@@ -43,14 +43,15 @@ public class LoanCalc {
 	// the number of periods (n), and epsilon, the approximation's accuracy
 	// Side effect: modifies the class variable iterationCounter.
     public static double bruteForceSolver(double loan, double rate, int n, double epsilon) {
+		iterationCounter = 0;
 		double increment= 0.0001;
-		double g = 1;
+		double g = loan/n;
 		int stepcounter = 0;
-		while(Math.abs(endBalance(loan, rate, n, g))>=epsilon && (g<=loan)){
-			g= g+increment;
+		while(endBalance(loan, rate, n, g)>=epsilon){
 			stepcounter++;
+			g= g + epsilon;
 		}
-		iterationCounter=stepcounter;
+		iterationCounter = stepcounter;
 		return g;
     }
     
@@ -60,22 +61,22 @@ public class LoanCalc {
 	// the number of periods (n), and epsilon, the approximation's accuracy
 	// Side effect: modifies the class variable iterationCounter.
     public static double bisectionSolver(double loan, double rate, int n, double epsilon) {  
+		iterationCounter = 0;
         double L = 0.01;
 		double H = loan;
 		double g = (L+H)/2.0;
 		int stepcounter = 0;
-		double balance = endBalance(loan, rate, n, g);
-		while(Math.abs(balance)>=epsilon){
-			if(balance<0){
-				H = g;
-			} else{
-				L = g;
-			}
-			g = (L+H)/2;
-			balance = endBalance(loan, rate, n, g);
+		while((H-L)>epsilon){
 			stepcounter++;
+			if(endBalance(loan, rate, n, g)*endBalance(loan, rate, n, L)>0)
+			{
+				L=g;
+			} else{ 
+				H=g;
+			}
+			g = (L+H)/2.0;
 		}
-		iterationCounter=stepcounter;
+		iterationCounter = stepcounter;
 		return g;
     }
 }

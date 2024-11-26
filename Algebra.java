@@ -53,6 +53,9 @@ public class Algebra {
 	public static int times(int x1, int x2) {
 		int add= x1;
 		int Max=x2;
+		if(x1 == 0 || x2 == 0){
+			return 0;
+		}
 		if(x2<0){
 		  Max= minus(minus(x2, x2), x2);
 		}
@@ -70,6 +73,9 @@ public class Algebra {
 	// Returns x^n (for n >= 0)
 	public static int pow(int x, int n) {
 		int add = x;
+		if(n == 0){
+			return 1;
+		}
 		for(int i=1; i<n; i++){
 			x = times(x, add);
 		}
